@@ -32,11 +32,7 @@
     ```
 
 2. **Sebutkan widget apa saja yang kamu gunakan pada proyek ini dan jelaskan fungsinya.**<br>
-    Kebetulan semua widget yang terpakai pada projek ini adalah stateless widget. Berikut penjelasannya.<br>
-    Stateless widget MyApp:<br>
-    Stateless widget InfoCard:<br>
-    Stateless widget MyHomePage:<br>
-    Stateless widget ItemCard:<br>
+
 
 3. **Apa fungsi dari setState()? Jelaskan variabel apa saja yang dapat terdampak dengan fungsi tersebut.**<br>
     Fungsi setState() berfungsi untuk memberi tahu framework kalau ada perubahan yang terjadi pada state sebuah widget yang stateful, 
@@ -53,3 +49,6 @@
     detailnya mungkin hanya bisa diketahui saat program berjalan (saat runtime baru bisa dihitung). Dengan begitu, final akan cocok digunakan 
     untuk objek yang valuenya didapatkan ketika runtime dan const cocok digunakan untuk objek yang statis karena const harus diinisialisasi di 
     compile-time. Contoh pemakaian const yaitu `const a = 1`, lalu contoh pemakaian final yaitu `final DateTime tanggal = DateTime.now()`.
+
+5. **Jelaskan bagaimana cara kamu mengimplementasikan checklist-checklist di atas**
+
