@@ -1,5 +1,107 @@
 # toko_jam_bobert
 
+**<h1>Tugas 8</h1>**
+
+**<h1>Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?</h1>**
+Dalam flutter, const digunakan untuk mendefinisikan objek atau widget yang bersifat konstan (immutable) dan tidak akan berubah selama aplikasi 
+berjalan. const memungkinkan Dart untuk mengalokasikan objek tersebut pada saat kompilasi (compile-time), bukan saat aplikasi berjalan (runtime). 
+Keuntungan pakai const:
+- Penghematan memori: Dengan menggunakan const, objek dibuat hanya sekali di memori, dan instance yang sama dapat digunakan kembali 
+setiap kali dibutuhkan.
+- Performa rendering yang lebih baik: Karena const widget tidak akan berubah, Flutter tidak perlu me-render ulang widget tersebut, 
+yang membantu menjaga aplikasi tetap responsif.
+- Pendeteksian kesalahan lebih awal: Karena nilai const harus tetap, kesalahan akan terdeteksi pada saat kompilasi 
+jika ada kode yang mencoba mengubah nilai const. 
+Ini membantu menangkap error lebih cepat.
+
+Sebaiknya kita memakai const ketika ada widget yang statis dan pada nilai konstan seperti int atau string begitu, dan Jika ada widget 
+yang di dalamnya hanya berisi widget konstan lainnya, maka gunakan const pada widget induk untuk memanfaatkan compile-time constant sepenuhnya.
+Lalu kita sebaiknya tidak memakai const untuk widget yang dinamis dan widget yang menerima input user seperti TextField atau Slider. 
+Hal ini karena const itu bersifat konstan (immutable) dan tidak akan berubah selama aplikasi berjalan.
+
+
+**<h1>Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!</h1>**
+Sesuai namanya, Column akan terpakai untuk layout secara kolom atau vertikal, sedangkan Row akan terpakai untuk layout secara baris atau horizontal.
+
+Contoh pemakaian Row
+```dart
+Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+    InfoCard(title: 'NPM', content: npm),
+    InfoCard(title: 'Name', content: name),
+    InfoCard(title: 'Class', content: className),
+    ],
+),
+```
+Contoh pemakaian Column
+```dart
+child: Column(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8.0),
+            Text(content),
+          ],
+        ),
+```
+
+**<h1>Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!</h1>**
+Elemen input yang saya gunakan pada halaman form saya adalah TextFormField. TextFormField ini terpakai untuk input Name, Description, dan Amount.
+Beberapa elemen input lain yang tidak digunakan dalam form ini, seperti:
+- Checkbox - Untuk input boolean (true/false)
+- Radio - Untuk memilih satu opsi dari beberapa pilihan
+- DropdownButton - Untuk memilih satu item dari daftar dropdown
+
+**<h1>Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?</h1>**
+Dengan mengimplementasikan ThemeData pada MaterialApp seperti ThemeData.dark(), sehingga kita pakai itu di widget tertentu agar bisa konsisten dengan tema utama. <br>
+ini di main.dart
+```dart
+theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: Colors.deepPurple,
+        ).copyWith(secondary: Colors.deepPurple[400]),
+        useMaterial3: true,
+      ),
+```
+ini contoh pemakaiannya:
+```dart
+backgroundColor: Theme.of(context).colorScheme.secondary,
+color: Theme.of(context).colorScheme.secondary,
+backgroundColor: WidgetStateProperty.all(
+    Theme.of(context).colorScheme.primary),
+)
+```
+
+**<h1>Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?</h1>**
+Yaitu dengan cara menggunakan widget Navigator yang menampilkan halaman-halaman sebagai tumpukan (stack). Untuk membuka halaman baru atau berpindah antar halaman, kita dapat memanfaatkan Navigator melalui BuildContext. Beberapa fungsi utama yang sering digunakan dalam Navigator adalah:
+- push() – Menambahkan halaman baru ke atas stack, sehingga halaman baru tersebut tampil di layar.
+- pop() – Menghapus halaman yang sedang aktif dari stack, sehingga kembali ke halaman sebelumnya.
+- pushReplacement() – Mengganti halaman saat ini dengan halaman baru tanpa menambahkannya ke dalam stack, cocok untuk skenario seperti login atau onboarding.<br>
+Berikut contoh pemakaian dari push(), pop(), dan juga pushReplacement():
+```dart
+// push()
+if (item.name == "Tambah Mood") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MoodEntryFormPage()));
+    }
+// pop()
+onPressed: () {
+        Navigator.pop(context);
+    },
+// pushReplacement()
+onTap: () {
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MyHomePage(),
+        ));
+    },
+```
+Sebagai info tambahan, terdapat juga beberapa method lain yang dapat memudahkan routing dalam pengembangan aplikasi, seperti popUntil(), canPop(), dan maybePop().
+**<h1>Tugas 7</h1>**
 
 1. **Jelaskan apa yang dimaksud dengan stateless widget dan stateful widget, dan jelaskan perbedaan dari keduanya.**<br>
     Stateless widget adalah widget statis dimana setiap konfigurasi di dalamnya sudah di initialize dari awal, 
@@ -10,7 +112,7 @@
     Jadi stateless widget terpakai jika UInya bergantung pada external input dan data tidak berubah, lalu stateful widget terpakai
      ketika kita perlu melacak data yang dapat berubah seperti counter begitu.
     Contoh stateless yaitu:
-    ```python
+    ```dart
     class MyApp extends StatelessWidget {
         const MyApp({super.key});
 
