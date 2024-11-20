@@ -1,5 +1,97 @@
 # toko_jam_bobert
 
+**<h1>Tugas 9</h1>**
+**<h1>1. Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?</h1>**
+Membuat model penting untuk mengatur data JSON karena model membantu memetakan struktur data secara terorganisir dan konsisten. Tanpa model, data yang diambil dari API hanya berupa map atau struktur mentah yang sulit digunakan, terutama jika data tersebut memiliki banyak atribut atau relasi. Model memungkinkan kita mengubah data JSON menjadi objek yang mudah diakses, dengan tipe data yang jelas untuk setiap atribut. Hal ini juga membantu saat kita perlu memvalidasi atau memanipulasi data, karena model menyediakan metode dan fungsi yang mempermudah pengelolaan data tersebut.
+Jika tidak membuat model, kemungkinan besar akan muncul error, terutama saat ada perubahan struktur data di backend. Flutter tidak akan langsung mengenali atribut atau tipe data yang diharapkan, sehingga bisa terjadi kesalahan runtime saat mengakses data yang tidak sesuai dengan ekspektasi. Selain itu, tanpa model, kode akan lebih sulit dibaca dan rentan terhadap bug karena pengolahan data dilakukan secara manual. 
+
+**<h1>2. Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini</h1>**
+Library http pada Flutter berfungsi sebagai alat untuk melakukan komunikasi antara aplikasi Flutter dengan server backend, dalam hal ini Django. Library ini menyediakan fungsi-fungsi untuk mengirimkan permintaan HTTP, seperti GET, POST, PUT, dan DELETE, serta menerima respons dari server. Dengan menggunakan http, aplikasi Flutter dapat mengambil data JSON dari Django (fetch data), mengirimkan data yang diisi user ke server (submit data), atau memperbarui dan menghapus data pada backend sesuai kebutuhan.
+Pada tugas 9 ini, library http digunakan untuk menghubungkan aplikasi Flutter dengan API Django. Misalnya, ketika user mau melihat daftar produk, nanti app akan mengirimkan permintaan GET ke endpoint Django yang menyediakan data produk dalam format JSON. Respons dari server tersebut kemudian diolah menjadi model Dart agar mudah digunakan di Flutter. Dengan begitu, library http berfungsi sebagai jembatan utama yang memungkinkan integrasi antara backend Django dan frontend Flutter, sehingga data dapat ditampilkan atau dimanipulasi dalam aplikasi secara real-time.
+
+**<h1>3. Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.</h1>**
+CookieRequest berfungsi untuk menyimpan cookie yang diterima dari server setelah pengguna berhasil login, sehingga setiap permintaan HTTP berikutnya yang membutuhkan authentication dapat menyertakan cookie tersebut. hal tersebut penting untuk menjaga sesi pengguna tetap aktif tanpa perlu mengirim ulang kredensial pada setiap permintaan.
+
+Instance CookieRequest perlu dibagikan ke semua komponen dalam aplikasi Flutter agar semua bagian aplikasi yang membutuhkan akses ke data yang dilindungi atau memerlukan authentication dapat menggunakan cookie yang sama. Dengan cara ini, sesi pengguna dapat dikelola dengan konsisten di seluruh aplikasi, seperti untuk fitur login, atau akses ke halaman yang butuh authentication. Penggunaan shared instance juga menghindari duplikasi atau konflik dalam pengelolaan cookie, sehingga memastikan komunikasi antara aplikasi Flutter dan server Django berjalan dengan lancar dan aman.
+
+**<h1>4. Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.</h1>**
+Mekanisme pengiriman data dari input di web Django hingga dapat ditampilkan di aplikasi Flutter melalui metode GET melibatkan beberapa langkah berikut:
+
+    1. Input Data di Web Django
+    Data dimasukkan oleh user di website Django. Setelah form diisi dan disubmit, Django memproses input tersebut dan menyimpannya di database. Proses ini dilakukan oleh views Django yang berinteraksi dengan model untuk menyimpan data.<br>
+
+    2. Penyediaan API Endpoint di Django
+    Django menyediakan endpoint REST API yang memungkinkan aplikasi eksternal, seperti Flutter, untuk mengakses data dari database.  Saat diakses dengan metode GET, endpoint akan mengembalikan data dalam format JSON.<br>
+
+    3. Pengambilan Data di Flutter
+    Di sisi Flutter, library seperti http digunakan untuk mengirim permintaan GET ke endpoint Django tersebut. Permintaan ini dilakukan melalui URL yang mengarah ke endpoint API Django.<br>
+
+    4. Deserialisasi Data JSON
+    Data yang diterima dari Django dalam format JSON perlu diubah menjadi objek yang dapat digunakan di Flutter. Ini dilakukan dengan membuat model data di Flutter yang sesuai dengan struktur JSON yang dikirim Django. Model ini biasanya didefinisikan menggunakan kelas dan fungsi untuk parsing JSON.<br>
+
+    5. Menampilkan Data di Flutter
+    Setelah data diubah menjadi objek Dart melalui proses deserialisasi, data tersebut kemudian ditampilkan di aplikasi Flutter.<br>
+
+
+**<h1>5. Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.</h1>**
+bikin view login di authentication views urlsnya juga set trus register jg sama. di flutter bikin login.dart sama register.dart, cocokin aja isinya nanti. jangan lupa authentication masukkin di settings.py pada django. lalu logout juga sama bikin aja viewsnya sm set urls juga. kalo register kita perlu send ke si django pnya server. yah intinya gitu sih
+
+**<h1>6. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial)</h1>**
+bikin view register login logout ya pokoknya gitu. page .dart buatkan, lalu sebenarnya mirip sama tutorial tapi perlu menyesuaikan model, untuk bagian login logout register mah tetap sama seperti tutorial, yang berbeda itu pas mau insert data dari flutter harus send juga ke website, dan itu perlu csrf exempt. Kita perlu kasih cookies juga buat usernya tambahkan biar kita gak usah login tiap kali pergantian page dll. Lalu jangan lupa tambahin logic buat onclick add product view product dan juga logout. Jika kita pencet view product nanti akan redirect ke list_productentry.dart, lalu dalam list itu bisa lihat produk saya implementasi dengan cara masukkinnya box dulu beserta nama produknya, nanti kalau dipencet akan redirect detail_product.dart. di detail_product.dart baru kita tampilin data-datanya si produk. perlu juga untuk mengubah modelsnya tapi gak ubah banyak juga, untungnya cuman perlu ganti mood jadi name lalu feelings jadi description dan juga quantity jadi price. Singkatnya seperti itu.
+
+berikut file detail_product.dart:
+```dart
+    import 'package:flutter/material.dart';
+    import 'package:toko_jam_bobert/models/mood_entry.dart';
+    import 'package:toko_jam_bobert/widgets/left_drawer.dart';
+
+    class DetailProductPage extends StatelessWidget {
+    final Product product;
+
+    const DetailProductPage({Key? key, required this.product}) : super(key: key);
+
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+        appBar: AppBar(
+            title: Text(product.fields.name),
+        ),
+        drawer: const LeftDrawer(),
+        body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                Text(
+                product.fields.name,
+                style: const TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                "Price: ${product.fields.price}",
+                style: const TextStyle(fontSize: 18.0),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                "Time: ${product.fields.time}",
+                style: const TextStyle(fontSize: 18.0),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                product.fields.description,
+                style: const TextStyle(fontSize: 16.0),
+                ),
+            ],
+            ),
+        ),
+        );
+    }
+    }
+
+```
 **<h1>Tugas 8</h1>**
 
 **<h1>Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?</h1>**
